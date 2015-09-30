@@ -338,7 +338,7 @@ func (r Request) Do() (*Response, error) {
 	}
 
 	req, err := r.NewRequest()
-
+	
 	if err != nil {
 		// we couldn't parse the URL.
 		return nil, &Error{Err: err}
@@ -462,7 +462,8 @@ func (r Request) NewRequest() (*http.Request, error) {
 	}
 	// add headers to the request
 	req.Host = r.Host
-
+	req.Close = true
+	
 	r.addHeaders(req.Header)
 	if r.Compression != nil {
 		req.Header.Add("Content-Encoding", r.Compression.ContentEncoding)
